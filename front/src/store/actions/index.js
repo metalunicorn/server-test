@@ -1,27 +1,24 @@
-import { useDispatch } from "react-redux";
-import {history} from "../../layout/index"
-
-export const actionAuthLogin = (jwt) => ({ type: "LOGIN", jwt });
+export const actionAuthLogin = (jwt) => ({ type: 'LOGIN', jwt });
 
 export const actionPromise = (name, promise) => {
   const actionPending = () => ({
-    type: "PROMISE",
+    type: 'PROMISE',
     name,
-    status: "PENDING",
+    status: 'PENDING',
     payload: null,
     error: null,
   });
   const actionResolved = (payload) => ({
-    type: "PROMISE",
+    type: 'PROMISE',
     name,
-    status: "RESOLVED",
+    status: 'RESOLVED',
     payload,
     error: null,
   });
   const actionRejected = (error) => ({
-    type: "PROMISE",
+    type: 'PROMISE',
     name,
-    status: "REJECTED",
+    status: 'REJECTED',
     payload: null,
     error,
   });
@@ -35,43 +32,33 @@ export const actionPromise = (name, promise) => {
     } catch (e) {
       dispatch(actionRejected(e));
     }
+
     return payload;
   };
 };
 
 export const actionEnter = (login, password) => async (dispatch) => {
-  console.log("two");
-  let registration = await dispatch(
+  const registration = await dispatch(
     actionPromise(
-      "registration",
-      fetch(`http://127.0.0.1:5000/user/register`, {
-        method: "POST",
+      'registration',
+      // eslint-disable-next-line no-undef
+      fetch('http://127.0.0.1:5050/user/register', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: login,
-          password: password,
+          password,
         }),
-      }).then(
-        (res) => res.json()
-      )
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (!registration.errors) {
-    console.log(registration)
     if (registration.token) {
       dispatch(actionAuthLogin(registration.token));
-      console.log("token: " + registration.token);
-      console.log(registration);
-    } else {
-      dispatch(actionEnter(login, password));
+      // eslint-disable-next-line no-undef
+      window.location.reload();
     }
-  }
-  else{
-      console.log(registration)
-  }
-  if(registration.token){
-    window.location.reload();
   }
 };
