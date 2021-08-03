@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 
 const SERVER_URL = 'http://localhost:5050';
 // Its Hook
+// Its Very BrokenHook
 function useChat() {
   const [messages, setMessages] = useState([]);
   const [usersOnline, setUsersOnline] = useState();
