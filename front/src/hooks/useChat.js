@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 
 const SERVER_URL = 'http://localhost:5050';
-
-const useChat = () => {
+// Its Hook
+function useChat() {
   const [messages, setMessages] = useState([]);
   const [usersOnline, setUsersOnline] = useState();
   const [showAllUsers, setShowAllUsers] = useState([]);
@@ -110,6 +110,6 @@ const useChat = () => {
     sendMessage,
     usersOnline,
   };
-};
+}
 
 export default useChat;
