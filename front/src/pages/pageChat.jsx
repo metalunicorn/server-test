@@ -35,6 +35,10 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  allUsersArea: {
+    height: '40%',
+    overflowY: 'auto',
+  },
 });
 
 const PageChat = () => {
@@ -107,13 +111,13 @@ const PageChat = () => {
           {role.payload && role.payload.admin ? (
             <>
               <Divider />
-              <List>
+              <List className={classes.allUsersArea}>
                 <Typography>All Users</Typography>
                 {showAllUsers.map(({
                   name, mute, _id, ban, admin,
                 }) => (
                   <ListItem key={_id}>
-                    <ListItemText>{admin ? '' : `${name}`}</ListItemText>
+                    <Typography>{admin ? '' : `${name}`}</Typography>
                     {admin ? (
                       <></>
                     ) : mute ? (
